@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: tsc-gateway
+  cloud:
+    gateway:
+      mvc:
+        routes:
+          - id: client-service
+            uri: http://client-service:8080
+            predicates:
+              - Path=/api/clientes/**
+          - id: account-service
+            uri: http://account-service:8080
+            predicates:
+              - Path=/api/cuentas/**

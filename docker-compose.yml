@@ -1,0 +1,41 @@
+services:
+  db-clients:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: clients
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./database/db-clients.sql:/docker-entrypoint-initdb.d/clients-init.sql
+  db-accounts:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: accounts
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./database/db-accounts.sql:/docker-entrypoint-initdb.d/accounts-init.sql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+#  ms-gateway:
+#    build: ./ms-gateway
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - ms-accounts
+#  ms-accounts:
+#    build: ./ms-accounts
+#    depends_on:
+#      - db-accounts
+#    ports:
+#      - "8081:8080"
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://db-accounts:3306/accounts?reconnect=true&serverTimezone=UTC
+#      SPRING_DATASOURCE_NAME: accounts
+#      SPRING_DATASOURCE_USERNAME: root
+#      SPRING_DATASOURCE_PASSWORD: root

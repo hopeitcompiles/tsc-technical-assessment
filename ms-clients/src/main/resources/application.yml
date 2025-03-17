@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: clients
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/clients?reconnect=true&serverTimezone=UTC
+    username: root
+    password: root
+#    url: ${SPRING_DATASOURCE_URL}
+#    username: ${SPRING_DATASOURCE_USERNAME}
+#    password: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: none
+server:
+  port: 8081
